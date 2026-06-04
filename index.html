@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1984 - 당신은 감시되고 있습니다</title>
+    <meta name="description" content="조지 오웰 1984 마이크로사이트. 전쟁은 평화, 자유는 예속, 무지는 힘.">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- 코딩용 폰트 (D2Coding) -->
+    <link href="https://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
+    <!-- Pretendard 폰트 (강렬한 타이포그래피용 산세리프) -->
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js" defer></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+    <script src="main.js" defer></script>
+</head>
+
+<body class="crt-effect locked-scroll">
+    <!-- 상단 정중앙 감시자의 눈동자 (SVG) -->
+    <div id="eye-container" class="hidden">
+        <svg class="eye-svg" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+            <path class="eye-outline"
+                d="M 50 5 C 20 5 0 30 0 30 C 0 30 20 55 50 55 C 80 55 100 30 100 30 C 100 30 80 5 50 5 Z" fill="none"
+                stroke="currentColor" stroke-width="3" />
+            <circle class="iris" cx="50" cy="30" r="15" fill="none" stroke="currentColor" stroke-width="2" />
+            <circle class="pupil" cx="50" cy="30" r="5" fill="#d32f2f" />
+        </svg>
+    </div>
+
+    <!-- 1. Intro (Loading Overlay) -->
+    <div id="intro-overlay" class="fullscreen-overlay">
+        <div class="bsod-container">
+            <div class="bsod-text">
+                <p>A fatal exception 0E has occurred at 0028:C0011E36 in VxD VMM(01) + 00010E36.</p>
+                <p>The current application will be terminated.</p>
+                <br><br>
+                <p class="typing-text" id="intro-typing"></p>
+            </div>
+            <div class="bsod-continue">Press any key to enter _</div>
+        </div>
+    </div>
+
+    <!-- 8. Outro / Exit (Ending Overlay) -->
+    <div id="outro-overlay" class="fullscreen-overlay hidden">
+        <div id="tv-off" class="hidden"></div>
+        <div id="restart-screen" class="hidden">
+            <div class="bsod-container">
+                <div class="bsod-text">
+                    <p class="typing-text" id="outro-typing"></p>
+                </div>
+                <!-- 디자인적으로 간단해진 RESTART 버튼 -->
+                <div class="restart-wrap">
+                    <button id="btn-restart" class="hidden">RESTART</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 상단 내비게이션 바 -->
+    <header id="site-header" class="header-bar">
+        <div class="logo-icon">1984</div>
+        <div class="menu-container">
+            <nav class="menu" id="menu-btn">MENU</nav>
+            <div class="dropdown-menu" id="dropdown-menu">
+                <ul>
+                    <li data-target="#message">Key Message</li>
+                    <li data-target="#diary">Diary</li>
+                    <li data-target="#pyramid">System Hierarchy</li>
+                    <li data-target="#telescreen">Telescreen</li>
+                    <li data-target="#year2026">1984 vs 2026</li>
+                    <li data-target="#book">Library</li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 영역 -->
+    <main id="main-content">
+        <!-- 배경 타이포그래피 (그리드 대체용) -->
+        <div class="bg-typography">BIG BROTHER IS WATCHING YOU</div>
+
+        <div class="wireframe-container">
+            <!-- 2. Key Message (Main) -->
+            <section id="message" class="wire-section hidden-section">
+                <div class="typography-container">
+                    <div class="slogan-block">
+                        <h1 class="slogan" id="slogan-1">WAR IS PEACE</h1>
+                    </div>
+                    <div class="slogan-block">
+                        <h1 class="slogan" id="slogan-2">FREEDOM IS SLAVERY</h1>
+                    </div>
+                    <div class="slogan-block">
+                        <h1 class="slogan" id="slogan-3">IGNORANCE IS STRENGTH</h1>
+                    </div>
+                    <!-- <h1 class="slogan kor-slogan">전쟁은 평화, 자유는 예속, 무지는 힘</h1> -->
+                </div>
+            </section>
+
+            <!-- 3. Diary (Overlapping windows) -->
+            <section id="diary" class="wire-section hidden-section">
+                <div class="diary-overlap-container">
+                    <div class="win-window notepad background-win">
+                        <div class="win-titlebar">
+                            <div class="win-title">System Log</div>
+                        </div>
+                        <div class="win-content">
+                            <p>[SYS] Monitoring active...</p>
+                            <p>[SYS] No threats detected.</p>
+                        </div>
+                    </div>
+                    <div class="win-window notepad foreground-win">
+                        <div class="win-titlebar">
+                            <div class="win-title">Winston's Diary.txt</div>
+                            <div class="win-controls">
+                                <button class="win-btn">X</button>
+                            </div>
+                        </div>
+                        <div class="win-content">
+                            <p class="diary-desc">사상범은 죽음을 의미하지 않는다.</p>
+                            <p class="diary-desc">사상범은 단순히 죽음을 기다리는 상태일 뿐이다.</p>
+                            <p class="instruction">▶ 당신의 생각을 적어보세요. (예: 자유, 평화, 혁명)</p>
+                            <textarea id="diary-input" placeholder="..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Pyramid (Infographic) -->
+            <section id="pyramid" class="wire-section hidden-section">
+                <div class="win-window pyramid-box">
+                    <div class="win-titlebar">
+                        <div class="win-title">Memory_Hole.exe</div>
+                        <div class="win-controls"><button class="win-btn-close">×</button></div>
+                    </div>
+                    <div class="win-content pyramid-layout">
+                        <div class="pyramid-text-left">
+                            <div class="info-box class-node" data-class="outer">
+                                <h2>Outer Party</h2>
+                                <span class="percent">13%</span>
+                            </div>
+                        </div>
+                        <div class="pyramid-center">
+                            <div class="triangle-container">
+                                <div class="tri-layer inner-tri class-node" data-class="inner"></div>
+                                <div class="tri-layer outer-tri class-node" data-class="outer"></div>
+                                <div class="tri-layer proles-tri class-node" data-class="proles"></div>
+                            </div>
+                        </div>
+                        <div class="pyramid-text-right">
+                            <div class="info-box class-node" data-class="inner">
+                                <h2>Inner Party</h2>
+                                <span class="percent">2%</span>
+                            </div>
+                            <div class="info-box class-node" data-class="proles">
+                                <h2>Proles</h2>
+                                <span class="percent">85%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Telescreen -->
+            <section id="telescreen" class="wire-section hidden-section">
+                <div class="win-window telescreen-window">
+                    <div class="win-titlebar">
+                        <div class="win-title">TELESCREEN BROADCAST</div>
+                    </div>
+                    <div class="win-content tv-layout">
+                        <div class="tv-screen">
+                            <div class="kinetic-text">HATE</div>
+                            <button id="btn-hate">증오 (HATE)</button>
+                        </div>
+                        <div class="ai-chat">
+                            <div class="chat-header">Monitoring Chat - LIVE</div>
+                            <div class="chat-messages" id="chat-messages">
+                                <!-- JS will populate this -->
+                            </div>
+                            <div class="chat-input-area">
+                                <input type="text" id="chat-input" placeholder="Type message to broadcast...">
+                                <button id="btn-chat-send">SEND</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. 1984 vs 2026 (Comparison Layout) -->
+            <section id="year2026" class="wire-section hidden-section">
+                <div class="win-window">
+                    <div class="win-titlebar">
+                        <div class="win-title">Comparison_Log.exe</div>
+                        <div class="win-controls"><button class="win-btn-close">×</button></div>
+                    </div>
+                    <div class="win-content comparison-container" style="padding: 0;">
+                        <div class="comparison-header">
+                            <div class="col-title">1984</div>
+                            <div class="col-title">2026</div>
+                        </div>
+
+                        <div class="comparison-row">
+                            <div class="comparison-item">
+                                <div class="term-name">Telescreen</div>
+                                <div class="term-desc">사생활이 완벽히 차단된 양방향 감시 및 선전 도구</div>
+                            </div>
+                            <div class="comparison-item">
+                                <div class="term-name">CCTV & Smartphone</div>
+                                <div class="term-desc">현대인들의 위치, 대화, 검색 기록을 자발적으로 제공하는 데이터 수집기</div>
+                            </div>
+                        </div>
+
+                        <div class="comparison-row">
+                            <div class="comparison-item">
+                                <div class="term-name">Big Brother</div>
+                                <div class="term-desc">당의 권력을 형상화한 절대적이고 오류 없는 지배자</div>
+                            </div>
+                            <div class="comparison-item">
+                                <div class="term-name">Algorithm</div>
+                                <div class="term-desc">개인의 선호와 행동을 분석하고 예측하여 무의식을 통제하는 보이지 않는 힘</div>
+                            </div>
+                        </div>
+
+                        <div class="comparison-row">
+                            <div class="comparison-item">
+                                <div class="term-name">2 Minute Hate</div>
+                                <div class="term-desc">군중의 억압된 불만을 증오의 대상으로 돌려 체제를 결속하는 의식</div>
+                            </div>
+                            <div class="comparison-item">
+                                <div class="term-name">Online Witch Hunt</div>
+                                <div class="term-desc">인터넷 커뮤니티와 SNS에서 발생하는 맹목적인 분노와 사이버 불링</div>
+                            </div>
+                        </div>
+
+                        <div class="comparison-row">
+                            <div class="comparison-item">
+                                <div class="term-name">Ministry of Truth</div>
+                                <div class="term-desc">당의 이익에 맞게 과거의 역사와 기록을 조작하는 부서</div>
+                            </div>
+                            <div class="comparison-item">
+                                <div class="term-name">Fake News</div>
+                                <div class="term-desc">특정 세력의 이익을 위해 온라인에서 대량으로 유포되는 왜곡된 정보</div>
+                            </div>
+                        </div>
+
+                        <div class="comparison-row">
+                            <div class="comparison-item">
+                                <div class="term-name">Thoughtcrime</div>
+                                <div class="term-desc">당의 이념에 반하는 생각을 하는 것만으로도 사형에 처해지는 범죄</div>
+                            </div>
+                            <div class="comparison-item">
+                                <div class="term-name">Filter Bubble</div>
+                                <div class="term-desc">알고리즘이 제공하는 정보만 받아들여 확증 편향이 강화되는 현상</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Link / Book -->
+            <section id="book" class="wire-section hidden-section">
+                <div class="win-window book-window">
+                    <div class="win-titlebar">
+                        <div class="win-title">Library.exe</div>
+                        <div class="win-controls"><button class="win-btn-close">×</button></div>
+                    </div>
+                    <div class="win-content book-layout">
+                        <div id="canvas-container"></div>
+                        <div class="book-info">
+                            <h2 class="book-title">1984</h2>
+                            <p class="book-author">George Orwell</p>
+                            <p class="book-desc">모든 것을 의심하라.</p>
+                            <div class="keywords">#디스토피아 #감시사회 #통제</div>
+                            <div class="links">
+                                <a href="https://product.kyobobook.co.kr/detail/S000000620214" target="_blank"
+                                    onclick="alert('교보문고 페이지로 이동합니다.')">Purchase</a>
+                                <a href="https://www.instagram.com/kk.ink119/" target="_blank">Bookstagram</a>
+                                <a href="https://youtu.be/j-i6F3Ebl2g" target="_blank">Book Trailer</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 하단 디자인적 종료 버튼 -->
+                <div class="shutdown-wrap">
+                    <button id="btn-shutdown" class="btn-minimal">EXIT</button>
+                </div>
+            </section>
+        </div> <!-- end of wireframe-container -->
+    </main>
+
+    <!-- 하단 푸터 및 UP 버튼 -->
+    <footer id="site-footer" class="footer-bar">
+        <button id="btn-up" class="btn-minimal-small">▲ TOP</button>
+    </footer>
+
+    <!-- Popup Template -->
+    <div id="popup-container"></div>
+
+</body>
+
+</html>

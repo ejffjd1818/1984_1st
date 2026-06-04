@@ -1,0 +1,1084 @@
+/* style.css (Black & Red / Typo-centric) */
+:root {
+    --win-black: #050505;
+    --win-red: #d32f2f;
+    --win-white: #e0e0e0;
+    --win-border: #333333;
+
+    /* 코딩 폰트 D2Coding으로 변경 */
+    --font-retro: 'D2Coding', monospace;
+    --font-modern: 'Pretendard', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--win-black);
+    color: var(--win-white);
+    font-family: var(--font-retro);
+    overflow-x: hidden;
+    cursor: default;
+    line-height: 1.6;
+}
+
+body.locked-scroll {
+    overflow: hidden;
+}
+
+/* Typography Base */
+h1,
+h2,
+h3,
+h4,
+.slogan,
+.book-title,
+.col-title {
+    font-family: var(--font-modern);
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+/* CRT Effect & Grid */
+.crt-effect::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+    z-index: 9999;
+    background-size: 100% 3px, 3px 100%;
+    pointer-events: none;
+}
+
+/* Overlays (Intro / Outro) */
+.fullscreen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--win-black);
+    transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.5s ease;
+}
+
+.fullscreen-overlay.slide-up {
+    transform: translateY(-100%);
+}
+
+.fullscreen-overlay.hidden {
+    display: none;
+}
+
+/* BSOD Typography */
+.bsod-container {
+    width: 100%;
+    height: 100%;
+    padding: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid var(--win-border);
+}
+
+.bsod-text {
+    font-size: 1.2rem;
+    line-height: 2;
+    color: var(--win-red);
+}
+
+.typing-text {
+    font-family: var(--font-modern);
+    font-weight: bold;
+    font-size: 2.5rem;
+    color: var(--win-white);
+    margin-top: 20px;
+}
+
+.blink-cursor {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+.bsod-continue {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: blink 1s step-end infinite;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--win-white);
+}
+
+/* Outro (Restart Screen) */
+#outro-overlay {
+    background-color: var(--win-black);
+}
+
+#restart-screen {
+    width: 100%;
+    height: 100%;
+}
+
+.restart-wrap {
+    margin-top: 50px;
+}
+
+#btn-restart {
+    padding: 10px 40px;
+    font-size: 1.2rem;
+    background: transparent;
+    color: var(--win-white);
+    border: 1px solid var(--win-white);
+    cursor: pointer;
+    font-family: var(--font-modern);
+    font-weight: 300;
+    letter-spacing: 4px;
+    transition: all 0.3s;
+}
+
+#btn-restart:hover {
+    background: var(--win-white);
+    color: var(--win-black);
+}
+
+/* Eye Interaction (Top Center, SVG) */
+#eye-container {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 50px;
+    z-index: 5001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s;
+}
+
+#eye-container.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.eye-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.eye-outline {
+    stroke: var(--win-border);
+    transition: stroke 0.3s;
+}
+
+.iris {
+    stroke: var(--win-white);
+    transition: stroke 0.3s;
+}
+
+.pupil {
+    transform-origin: center;
+    transition: transform 0.1s ease-out;
+}
+
+/* Make eye glow red when hovering over specific elements */
+body:hover .eye-outline {
+    stroke: rgba(211, 47, 47, 0.3);
+}
+
+/* Window Styles (Minimal, Line-based) */
+.win-window {
+    background: transparent;
+    border: 1px solid var(--win-border);
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.win-titlebar {
+    background: var(--win-border);
+    color: var(--win-white);
+    padding: 5px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
+
+.win-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+}
+
+.win-controls button,
+.win-btn,
+.win-btn-close {
+    background: transparent;
+    color: var(--win-white);
+    border: 1px solid var(--win-white);
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-family: var(--font-retro);
+    padding: 2px 8px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.win-controls button:hover,
+.win-btn:hover,
+.win-btn-close:hover {
+    background: var(--win-red);
+    border-color: var(--win-red);
+    color: var(--win-white);
+}
+
+.win-content {
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Header & Footer */
+.header-bar,
+.footer-bar {
+    position: fixed;
+    left: 0;
+    width: 100vw;
+    z-index: 5000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    margin: 0;
+    border: none;
+    background: transparent;
+    mix-blend-mode: difference;
+}
+
+.header-bar {
+    top: 0;
+}
+
+.footer-bar {
+    bottom: 0;
+    justify-content: flex-end;
+}
+
+.logo-icon {
+    font-family: var(--font-modern);
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: 5px;
+    color: var(--win-white);
+}
+
+/* Menu Dropdown */
+.menu-container {
+    position: relative;
+}
+
+.menu {
+    cursor: pointer;
+    font-family: var(--font-modern);
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 5px 10px;
+    color: var(--win-white);
+    letter-spacing: 2px;
+}
+
+.menu:hover {
+    color: var(--win-red);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--win-black);
+    border: 1px solid var(--win-border);
+    width: 250px;
+    display: none;
+    margin-top: 10px;
+}
+
+.dropdown-menu.active {
+    display: block;
+}
+
+.dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.dropdown-menu li {
+    padding: 15px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--win-border);
+    font-family: var(--font-modern);
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: color 0.2s;
+}
+
+.dropdown-menu li:last-child {
+    border-bottom: none;
+}
+
+.dropdown-menu li:hover {
+    color: var(--win-red);
+}
+
+/* Minimal Buttons */
+.btn-minimal,
+.btn-minimal-small {
+    background: transparent;
+    color: var(--win-white);
+    border: 1px solid var(--win-border);
+    cursor: pointer;
+    font-family: var(--font-modern);
+    font-weight: 300;
+    letter-spacing: 4px;
+    transition: all 0.3s;
+}
+
+.btn-minimal {
+    padding: 15px 50px;
+    font-size: 1.5rem;
+}
+
+.btn-minimal:hover {
+    border-color: var(--win-red);
+    color: var(--win-red);
+}
+
+.btn-minimal-small {
+    padding: 5px 15px;
+    font-size: 0.9rem;
+}
+
+.btn-minimal-small:hover {
+    border-color: var(--win-white);
+    background: var(--win-white);
+    color: var(--win-black);
+}
+
+/* Layout Structure */
+#main-content {
+    opacity: 0;
+    transition: opacity 1s;
+    position: relative;
+}
+
+.bg-typography {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-modern);
+    font-weight: 900;
+    font-size: 12vw;
+    color: rgba(255, 255, 255, 0.02);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: -1;
+    text-align: center;
+    line-height: 0.8;
+}
+
+.wireframe-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 150px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 150px;
+}
+
+.wire-section {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 2. Key Message (Typography) */
+.typography-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 60vh;
+    /* 중앙 정렬된 컨테이너(wireframe-container)를 무시하고 화면 왼쪽 끝으로 밀착시키는 코드 */
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding-left: 40px;
+    /* 화면 왼쪽 끝에서 살짝 떨어지는 여백 */
+    position: relative;
+}
+
+.slogan-block {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.slogan {
+    font-size: 150px;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: var(--win-white);
+    opacity: 0;
+    transform: translateY(50px);
+    text-align: left;
+}
+
+.slogan:hover {
+    color: var(--win-red);
+}
+
+.kor-slogan {
+    font-size: 1.2rem;
+    color: var(--win-red);
+    margin-top: 60px;
+    font-weight: normal;
+    font-family: var(--font-retro);
+    letter-spacing: 2px;
+    opacity: 0.8;
+}
+
+/* 3. Diary */
+.diary-overlap-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+}
+
+.background-win {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 300px;
+    z-index: 1;
+    border-color: var(--win-border);
+}
+
+.background-win .win-content {
+    color: var(--win-border);
+    font-size: 0.9rem;
+}
+
+.foreground-win {
+    position: absolute;
+    top: 100px;
+    right: 0;
+    width: 60%;
+    height: 400px;
+    z-index: 2;
+    border-color: var(--win-red);
+    background: var(--win-black);
+}
+
+.foreground-win .win-content {
+    display: flex;
+    flex-direction: column;
+    height: 330px;
+}
+
+.diary-desc {
+    color: var(--win-white);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-family: var(--font-modern);
+    font-weight: bold;
+}
+
+.instruction {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    color: var(--win-red);
+}
+
+#diary-input {
+    flex-grow: 1;
+    border: none;
+    resize: none;
+    outline: none;
+    font-family: var(--font-retro);
+    font-size: 1.1rem;
+    background: transparent;
+    color: var(--win-red);
+}
+
+/* 4. Pyramid (Infographic) */
+.pyramid-layout {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 40px;
+    padding: 40px;
+    background: transparent;
+}
+
+.pyramid-text-left,
+.pyramid-text-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 60px;
+}
+
+.pyramid-text-left {
+    align-items: flex-end;
+    padding-right: 30px;
+}
+
+.pyramid-text-right {
+    align-items: flex-start;
+    padding-left: 30px;
+}
+
+.info-box {
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+}
+
+.info-box h2 {
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--win-border);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    transition: color 0.3s;
+}
+
+.info-box .percent {
+    font-size: 3rem;
+    font-family: var(--font-modern);
+    font-weight: 900;
+    color: var(--win-border);
+    line-height: 1;
+    transition: color 0.3s;
+}
+
+.info-box:hover h2,
+.info-box:hover .percent {
+    color: var(--win-red);
+}
+
+.pyramid-center {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+/* Thinner CSS Triangle Pyramid (True pyramid shape) */
+.pyramid-center {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+}
+
+.triangle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.tri-layer {
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--win-black);
+    font-family: var(--font-modern);
+    font-weight: bold;
+}
+
+.tri-layer:hover,
+.tri-layer.active {
+    filter: brightness(1.5);
+    background: var(--win-red);
+}
+
+.inner-tri:hover,
+.inner-tri.active {
+    background: transparent;
+    border-bottom-color: #ff4444; /* Brighter red to simulate hover/active */
+}
+
+.inner-tri {
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 100px solid var(--win-red);
+}
+
+.outer-tri {
+    width: 200px;
+    height: 100px;
+    background: #444;
+    clip-path: polygon(25% 0, 75% 0, 100% 100%, 0 100%);
+}
+
+.proles-tri {
+    width: 300px;
+    height: 100px;
+    background: #222;
+    clip-path: polygon(16.66% 0, 83.33% 0, 100% 100%, 0 100%);
+}
+
+/* 5. Telescreen */
+.tv-layout {
+    display: flex;
+    gap: 30px;
+    padding: 0;
+    background: transparent;
+}
+
+.tv-screen {
+    flex: 2;
+    background: #000;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--win-border);
+    min-height: 400px;
+    overflow: hidden;
+}
+
+.tv-screen::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.tv-screen::before {
+    content: "REC •";
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: var(--win-red);
+    font-family: var(--font-modern);
+    font-weight: bold;
+    font-size: 1.5rem;
+    animation: blink 1s step-end infinite;
+    z-index: 6;
+}
+
+.kinetic-text {
+    font-family: var(--font-modern);
+    font-weight: 900;
+    font-size: 6rem;
+    color: var(--win-red);
+    text-align: center;
+    animation: glitch 0.2s infinite;
+    line-height: 1;
+    z-index: 2;
+}
+
+#btn-hate {
+    position: absolute;
+    bottom: 30px;
+    padding: 10px 30px;
+    font-size: 1.2rem;
+    font-family: var(--font-modern);
+    font-weight: bold;
+    background: transparent;
+    color: var(--win-white);
+    border: 1px solid var(--win-red);
+    cursor: pointer;
+    transition: 0.2s;
+    z-index: 10;
+}
+
+#btn-hate:hover {
+    background: var(--win-red);
+}
+
+.ai-chat {
+    flex: 1;
+    border: 1px solid var(--win-border);
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+}
+
+.chat-header {
+    border-bottom: 1px solid var(--win-border);
+    color: var(--win-red);
+    padding: 15px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: hidden;
+    font-size: 0.8rem;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.chat-msg {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--win-border);
+    color: #888;
+}
+
+.chat-msg span.username {
+    font-family: var(--font-modern);
+    font-weight: bold;
+    color: var(--win-white);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.chat-input-area {
+    display: flex;
+    border-top: 1px solid var(--win-border);
+}
+
+#chat-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--win-white);
+    padding: 15px;
+    font-family: var(--font-retro);
+    outline: none;
+}
+
+#btn-chat-send {
+    background: var(--win-red);
+    color: var(--win-white);
+    border: none;
+    padding: 0 20px;
+    cursor: pointer;
+    font-family: var(--font-modern);
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+#btn-chat-send:hover {
+    background: var(--win-white);
+    color: var(--win-black);
+}
+
+@keyframes glitch {
+    0% {
+        transform: translate(0)
+    }
+
+    20% {
+        transform: translate(-3px, 3px)
+    }
+
+    40% {
+        transform: translate(-3px, -3px)
+    }
+
+    60% {
+        transform: translate(3px, 3px)
+    }
+
+    80% {
+        transform: translate(3px, -3px)
+    }
+
+    100% {
+        transform: translate(0)
+    }
+}
+
+.shake {
+    animation: shake 0.3s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(8px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-16px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(16px, 0, 0);
+    }
+}
+
+/* 6. 1984 vs 2026 (Comparison Grid) */
+.comparison-container {
+    width: 100%;
+    border: 1px solid var(--win-border);
+    background: transparent;
+}
+
+.comparison-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--win-border);
+}
+
+.col-title {
+    font-size: 3rem;
+    padding: 30px;
+    text-align: center;
+    color: var(--win-red);
+}
+
+.comparison-header .col-title:first-child {
+    border-right: 1px solid var(--win-border);
+}
+
+.comparison-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--win-border);
+}
+
+.comparison-row:last-child {
+    border-bottom: none;
+}
+
+.comparison-item {
+    padding: 40px;
+}
+
+.comparison-row .comparison-item:first-child {
+    border-right: 1px solid var(--win-border);
+}
+
+.img-placeholder {
+    display: none;
+}
+
+.term-name {
+    font-family: var(--font-modern);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: var(--win-white);
+}
+
+.term-desc {
+    font-size: 1rem;
+    color: #aaa;
+    line-height: 1.6;
+}
+
+/* 7. Book */
+.book-layout {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    background: transparent;
+    padding: 0;
+}
+
+#canvas-container {
+    flex: 1;
+    height: 400px;
+}
+
+.book-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.book-title {
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--win-white);
+}
+
+.book-author {
+    font-size: 1.2rem;
+    color: var(--win-red);
+    font-family: var(--font-modern);
+    font-weight: bold;
+}
+
+.book-desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #888;
+}
+
+.keywords {
+    color: var(--win-border);
+    font-size: 0.9rem;
+}
+
+.links {
+    display: flex;
+    gap: 20px;
+    font-family: var(--font-modern);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.links a {
+    color: var(--win-white);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: all 0.3s;
+}
+
+.links a:hover {
+    color: var(--win-red);
+    border-bottom: 1px solid var(--win-red);
+}
+
+/* Shutdown Button */
+.shutdown-wrap {
+    text-align: center;
+    margin-top: 100px;
+}
+
+/* Exit TV Off Animation */
+#tv-off {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    z-index: 10000;
+}
+
+#tv-off.animate {
+    animation: tv-off 0.8s ease-out forwards;
+}
+
+#tv-off.hidden {
+    display: none;
+}
+
+@keyframes tv-off {
+    0% {
+        transform: scale(1, 1.3) translate3d(0, 0, 0);
+        filter: brightness(1);
+    }
+
+    60% {
+        transform: scale(1, 0.001) translate3d(0, 0, 0);
+        filter: brightness(10);
+    }
+
+    100% {
+        transform: scale(0, 0.001) translate3d(0, 0, 0);
+        filter: brightness(0);
+        background: #000;
+    }
+}
+
+/* Popup Overlay */
+.popup-window {
+    width: 350px;
+    position: fixed;
+    z-index: 20000;
+    transform: translate(-50%, -50%);
+    border-color: var(--win-red) !important;
+}
+
+.popup-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.popup-icon {
+    font-size: 2rem;
+}
+
+.popup-text h3 {
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+    color: var(--win-red);
+}
+
+.popup-text p {
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.popup-btn-wrap {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.popup-btn {
+    padding: 5px 20px;
+    background: transparent;
+    color: var(--win-red);
+    border: 1px solid var(--win-red);
+}
+
+.popup-btn:hover {
+    background: var(--win-red);
+    color: var(--win-white);
+}
